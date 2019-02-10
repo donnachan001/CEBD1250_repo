@@ -1,0 +1,93 @@
+
+Get the third highest salary of an employee from employee_table:
+
+I am confused by the above statement because there is no salary from the employees table. Below I provided the SQL for the top 3 highest 
+paid employee
+
+SELECT  employees.emp_no, employees.first_name, employees.last_name, salaries.salary FROM employees 
+INNER JOIN salaries ON employees.emp_no = salaries.emp_no 
+WHERE salaries.to_date= '9999-01-01' order by salaries.salary desc limit 3
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Find the names of employees that begin with ‘A’:
+
+Since it was not specified whether it is first name or last name, I used first_name.
+
+SELECT first_name, last_name FROM employees WHERE first_name LIKE 'A%' limit 30;
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Where/Having:
+
+Both are used in filtering. But Having clause is mainly in aggregates or group by select statement, and is usually performed after the aggregation
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ER Model describes the elements of the database and how it relates to each other. 
+It has the following components:
+
+entity - tables/objects
+
+relationships - one to one; one to many; many to many
+
+primary key - one or more attribute that is unique to the record and cannot be null
+
+secondary key -
+
+foreign key - key or attribute that establishes a relationship between 2 tables.  It is normally defined in a second table and it refers to the primary key of the first table
+
+attributes - fields or columns or properties
+
+attribute type - defines data type of attribute (var, int, float, string, etc)
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Categories of SQL statements:
+
+DDL - Data Definition Language is responsible for defining the database structure and form, such as creating/deleting objects, defining columns and its properties
+
+DML - Data Manipulation Language, aka DML or CRUD (Create, Read, Update and Delete). 
+
+DCL - Data Control Language is responsible for controlling access/permissions to objects and columns
+
+TCL - Transaction Control Language allows you to rollback/undo or commit transactions performed
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Joins:
+
+Inner - returns all rows where there is a match in both tables
+
+Left - returns all rows from the left table, even if there are no matches in the right table
+
+Right - returns all rows from the right table, even if there are no matches in the left table
+
+Full - returns rows when there is a match in one of the tables
+
+Self - is used to join a table to itself as if the table were two tables
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Null/Zero/Blank:
+
+Null has no value
+Zero is an integer
+Blank has a string with no value or spaces
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Returns the employee name and title for all employees with even number as actual salary (to_date is 9999-01-01):
+
+SELECT employees.emp_no, titles.title FROM employees 
+INNER JOIN titles ON employees.emp_no = titles.emp_no 
+INNER JOIN salaries ON employees.emp_no = salaries.emp_no 
+WHERE salaries.to_date = '9999-01-01' and MOD(salaries.salary,2)=0
+limit 20;
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+This is the correct SQL statement:
+
+SELECT employees.emp_no, AVG(salaries.salary)
+FROM employees INNER JOIN salaries ON employees.emp_no = salaries.emp_no
+GROUP BY employees.emp_no 
+HAVING AVG(salaries.salary) > 10000
